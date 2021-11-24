@@ -22,6 +22,7 @@ async function run () {
         const shoppingCallection = database.collection('shop');
         const addToCardCallection = database.collection('addTocard');
         const productCullection =database.collection('callction')
+        const tshartCullection =database.collection('tshart')
 
 
         // get api
@@ -32,6 +33,7 @@ async function run () {
             res.send(product)
             
         })
+       
         // get api for callction
         app.get('/callction',async(req,res)=>{
             const cursor=productCullection.find({});
@@ -45,9 +47,6 @@ async function run () {
         const id = req.params.id;
         console.log(id);
         const query = { _id: ObjectId(id) };
-        // const options = {
-        //   projection: { _id: 0 },
-        // };
         const result = await shoppingCallection.findOne(query);
         res.send(result)
         console.log(result);
@@ -76,6 +75,22 @@ async function run () {
         const result = await addToCardCallection.findOne(query);
         res.send(result)
         console.log(result);
+      });
+       // get api
+       app.get('/tshart',async(req,res)=>{
+        const cursor=tshartCullection.find({});
+        const tshart=await cursor.toArray();
+        res.send(tshart)
+        
+    });
+    // get single
+    app.get('/tshart/:id', async (req, res) => {
+        const id = req.params.id;
+        console.log(id);
+        const query = { _id: ObjectId(id) };
+        const result = await tshartCullection.findOne(query);
+        res.send(result)
+       
       });
 
     }
